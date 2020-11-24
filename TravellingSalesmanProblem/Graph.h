@@ -10,7 +10,7 @@ private:
 public:
 	Graph(int cityNum);
 	void generateGraph();
-	void loadGraph();
+	void loadGraph(int i, int j, int value);
 	void printGraph();
 	void dynamicPrograming();
 	void branchAndBound();

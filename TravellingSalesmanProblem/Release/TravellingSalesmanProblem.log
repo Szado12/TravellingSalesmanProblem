@@ -1,8 +1,7 @@
-﻿  Graph.cpp
-  TravellingSalesmanProblem.cpp
-  TSPBruteForce.cpp
+﻿  TSPBranchAndBound.cpp
   Trwa generowanie kodu
-  Previous IPDB not found, fall back to full compilation.
-  All 133 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  38 of 183 functions (20.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
   TravellingSalesmanProblem.vcxproj -> C:\Users\Michał\source\repos\TravellingSalesmanProblem\Release\TravellingSalesmanProblem.exe

@@ -1,6 +1,9 @@
 #include "Graph.h"
 #include <cstdlib>
 #include "TSPBruteForce.h"
+#include "TSPDynamicProgramming.h"
+#include "TSPBranchAndBound.h"
+#include "TSPAlgorithm.h"
 
 Graph::Graph(int cityNum)
 {
@@ -20,8 +23,14 @@ void Graph::generateGraph()
 				arrayGraph[i][j] = rand()%100 + 1;
 }
 
-void Graph::loadGraph()
+void Graph::loadGraph(int i,int j, int value)
 {
+	try {
+		this->arrayGraph[i][j] = value;
+	}
+	catch (const std::exception&) {
+		printf("Error position out of range");
+	}
 }
 
 void Graph::printGraph()
@@ -45,10 +54,18 @@ void Graph::printGraph()
 
 void Graph::dynamicPrograming()
 {
+	TSPDynamicProgramming* DynamicProgramming= new TSPDynamicProgramming(this->arrayGraph, this->cityNum);
+	DynamicProgramming->calculatePath();
+	this->path = DynamicProgramming->getPath();
+	this->distance = DynamicProgramming->getDistance();
 }
 
 void Graph::branchAndBound()
 {
+	TSPBranchAndBound* branchAndBound = new TSPBranchAndBound(this->arrayGraph, this->cityNum);
+	branchAndBound->calculatePath();
+	this->path = branchAndBound->getPath();
+	this->distance = branchAndBound->getDistance();
 }
 
 void Graph::bruteForce()
@@ -62,5 +79,5 @@ void Graph::printPath() {
 	printf("Path:\n");
 	for (int i = 0; i < this->cityNum; i++)
 		printf("%d -> ", this->path[i]);
-	printf("0 \n Distance: %d", this->distance);
+	printf("0 \nDistance: %d \n", this->distance);
 }

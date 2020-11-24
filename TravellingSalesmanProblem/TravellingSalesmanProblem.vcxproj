@@ -139,13 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BranchAndBoundNode.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="TravellingSalesmanProblem.cpp" />
+    <ClCompile Include="TSPAlgorithm.cpp" />
+    <ClCompile Include="TSPBranchAndBound.cpp" />
     <ClCompile Include="TSPBruteForce.cpp" />
+    <ClCompile Include="TSPDynamicProgramming.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BranchAndBoundNode.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="TSPAlgorithm.h" />
+    <ClInclude Include="TSPBranchAndBound.h" />
     <ClInclude Include="TSPBruteForce.h" />
+    <ClInclude Include="TSPDynamicProgramming.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

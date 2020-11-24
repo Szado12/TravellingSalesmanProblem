@@ -10,18 +10,13 @@ TSPBruteForce::TSPBruteForce(int** arrayGraph,int cityNum)
 
 void TSPBruteForce::calculatePath()
 {
-	
 	std::vector<int> currentPath;
 	currentPath.push_back(0);
 	bruteForce(currentPath, 0, 0);
-	
 }
 void TSPBruteForce::bruteForce(std::vector<int> currentPath,int currentNode,int distance) 
 {
-	if (distance > this->distance)
-		return;
-	else 
-	{
+	if (distance < this->distance) {
 		if (currentPath.size() == this->cityNum)
 		{
 			distance += arrayGraph[currentNode][0];
@@ -30,9 +25,8 @@ void TSPBruteForce::bruteForce(std::vector<int> currentPath,int currentNode,int 
 				this->path = currentPath;
 			}
 		}
-		else 
+		else
 		{
-
 			for (int i = 0; i < this->cityNum; i++)
 				if (std::find(currentPath.begin(), currentPath.end(), i) == currentPath.end()) {
 					currentPath.push_back(i);
@@ -42,12 +36,4 @@ void TSPBruteForce::bruteForce(std::vector<int> currentPath,int currentNode,int 
 		}
 	}
 			
-}
-int TSPBruteForce::getDistance() 
-{
-	return this->distance;
-}
-std::vector<int> TSPBruteForce::getPath() 
-{
-	return this->path;
 }

@@ -1,17 +1,11 @@
-#include <vector>
-
-class TSPBruteForce
+#include "TSPAlgorithm.h"
+class TSPBruteForce : public TSPAlgorithm
 {
-private:
-	int** arrayGraph;
-	int distance;
-	int cityNum;
-	std::vector<int> path;
+
 public:
 	TSPBruteForce(int** arrayGraph, int cityNum);
 	void calculatePath();
 	void bruteForce(std::vector<int> currentPath, int currentNode, int distance);
-	int getDistance();
-	std::vector<int> getPath();
+	
 };
 
