@@ -2,7 +2,7 @@
 #define TSPAlgorithm_HEADER
 #include <vector>
 
-class TSPAlgorithm
+class TSPAlgorithm 
 {
 public:
 	std::vector<int> path;

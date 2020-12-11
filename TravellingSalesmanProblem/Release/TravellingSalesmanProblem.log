@@ -1,7 +1,7 @@
-﻿  TSPBranchAndBound.cpp
+﻿  TSPSimulatedAnnealing.cpp
   Trwa generowanie kodu
-  38 of 183 functions (20.8%) were compiled, the rest were copied from previous compilation.
+  2 of 281 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
   TravellingSalesmanProblem.vcxproj -> C:\Users\Michał\source\repos\TravellingSalesmanProblem\Release\TravellingSalesmanProblem.exe

@@ -4,6 +4,8 @@
 #include "TSPDynamicProgramming.h"
 #include "TSPBranchAndBound.h"
 #include "TSPAlgorithm.h"
+#include "TSPSimulatedAnnealing.h"
+#include "TSPTabuSearch.h"
 
 Graph::Graph(int cityNum)
 {
@@ -26,7 +28,10 @@ void Graph::generateGraph()
 void Graph::loadGraph(int i,int j, int value)
 {
 	try {
-		this->arrayGraph[i][j] = value;
+		if(i==j)
+			this->arrayGraph[i][j] = -1;
+		else
+			this->arrayGraph[i][j] = value;
 	}
 	catch (const std::exception&) {
 		printf("Error position out of range");
@@ -79,5 +84,30 @@ void Graph::printPath() {
 	printf("Path:\n");
 	for (int i = 0; i < this->cityNum; i++)
 		printf("%d -> ", this->path[i]);
-	printf("0 \nDistance: %d \n", this->distance);
+	printf("%d \nDistance: %d \n", this->path.front(),this->distance);
+}
+
+void Graph::printHeuresticPath()
+{
+	printf("Path:\n");
+	for (int i = 0; i < this->cityNum; i++)
+		printf("%d -> ", this->path[i]);
+	printf("%d \nDistance: %d \n", this->path.front(), this->distance);
+	printf("Time: %f\n", this->time);
+}
+
+void Graph::simulatedAnnealing(int time, double coolingValue)
+{
+	TSPSimulatedAnnealing* simulateAnnealing = new TSPSimulatedAnnealing(this->arrayGraph, this->cityNum,time, coolingValue);
+	simulateAnnealing->Annealing();
+	this->path = simulateAnnealing->getPath();
+	this->distance = simulateAnnealing->getDistance();
+	this->time = simulateAnnealing->getFindTime();
+}
+void Graph::tabuSearch(int time,int type) {
+	TSPTabuSearch* tabuSearch = new TSPTabuSearch(this->arrayGraph, this->cityNum, time, type);
+	tabuSearch->search();
+	this->path = tabuSearch->getPath();
+	this->distance = tabuSearch->getDistance();
+	this->time = tabuSearch->getFindTime();
 }

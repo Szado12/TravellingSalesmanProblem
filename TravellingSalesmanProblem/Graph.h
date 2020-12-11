@@ -7,6 +7,7 @@ private:
 	int distance;
 	int** arrayGraph;
 	int cityNum;
+	double time;
 public:
 	Graph(int cityNum);
 	void generateGraph();
@@ -16,5 +17,8 @@ public:
 	void branchAndBound();
 	void bruteForce();
 	void printPath();
+	void printHeuresticPath();
+	void simulatedAnnealing(int time, double coolingValue);
+	void tabuSearch(int time, int type);
 };
 

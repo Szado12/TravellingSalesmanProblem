@@ -146,6 +146,9 @@
     <ClCompile Include="TSPBranchAndBound.cpp" />
     <ClCompile Include="TSPBruteForce.cpp" />
     <ClCompile Include="TSPDynamicProgramming.cpp" />
+    <ClCompile Include="TSPMetaheuristicAlgorithm.cpp" />
+    <ClCompile Include="TSPSimulatedAnnealing.cpp" />
+    <ClCompile Include="TSPTabuSearch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BranchAndBoundNode.h" />
@@ -154,6 +157,9 @@
     <ClInclude Include="TSPBranchAndBound.h" />
     <ClInclude Include="TSPBruteForce.h" />
     <ClInclude Include="TSPDynamicProgramming.h" />
+    <ClInclude Include="TSPMetaheuristicAlgorithm.h" />
+    <ClInclude Include="TSPSimulatedAnnealing.h" />
+    <ClInclude Include="TSPTabuSearch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

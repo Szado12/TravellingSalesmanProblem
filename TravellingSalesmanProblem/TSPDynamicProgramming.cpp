@@ -48,7 +48,7 @@ void TSPDynamicProgramming::calculatePath()
 		delete[] memArray;
 	}
 	catch (const std::bad_alloc) {
-		printf("B³¹d alkowania pamiêci");
+		printf("Allocating memeory failed");
 	}
 }
 

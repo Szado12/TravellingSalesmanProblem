@@ -2,6 +2,7 @@
 #include "TSPAlgorithm.h"
 class TSPDynamicProgramming : public TSPAlgorithm
 {
+	
 private:
 	int** memArray;
 	int maskMax;

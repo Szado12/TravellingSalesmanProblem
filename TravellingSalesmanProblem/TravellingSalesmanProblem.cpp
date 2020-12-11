@@ -1,9 +1,44 @@
 ﻿#include <iostream>
 #include "Graph.h"
 #include <fstream>
+#include <time.h>
+
 
 int main()
 {
+	srand(time(NULL));
+	Graph* graph = new Graph(15);
+ 	std::string filename="";
+	printf("File path:\n");
+	std::cin >> filename;
+	std::ifstream myfile;
+	myfile.open(filename);
+	if (!myfile) {
+		printf("Couldn't read file");
+	}
+	else {
+		int n, data;
+		myfile >> n;
+		graph = new Graph(n);
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++) {
+				myfile >> data;
+				graph->loadGraph(i, j, data);
+			}
+	}
+	
+	printf("0.9999 \n");
+	
+	graph->simulatedAnnealing(240, 0.99);
+	graph->printHeuresticPath();
+	graph->simulatedAnnealing(240, 0.999);
+	graph->printHeuresticPath();
+	graph->simulatedAnnealing(240, 0.9999);
+	graph->printHeuresticPath();
+
+	return 0;
+}
+	/*
 	int m1, m2;
 	Graph* graph;
 menu1:
@@ -97,6 +132,8 @@ menu2:
 	default:
 		goto menu2;
 	}
-
 	return 0;
 }
+	*/
+	
+

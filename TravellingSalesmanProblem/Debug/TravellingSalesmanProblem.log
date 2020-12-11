@@ -1,2 +1,5 @@
-﻿  Graph.cpp
+﻿  TSPSimulatedAnnealing.cpp
+  TravellingSalesmanProblem.cpp
+C:\Users\Michał\source\repos\TravellingSalesmanProblem\TravellingSalesmanProblem\TravellingSalesmanProblem.cpp(9,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+  Generowanie kodu...
   TravellingSalesmanProblem.vcxproj -> C:\Users\Michał\source\repos\TravellingSalesmanProblem\Debug\TravellingSalesmanProblem.exe
