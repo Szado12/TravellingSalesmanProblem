@@ -10,12 +10,12 @@ class TSPTabuSearch : public TSPMetaheuristicAlgorithm
 	int type;
 public:
 	TSPTabuSearch(int** arrayGraph, int cityNum, int second,int type);
-	void restart(std::vector<int>* vector);
-	void search();
-	std::vector<int> findPathSwap(int x, int y, std::vector<int> currentPath);
-	std::vector<int> findPathReverse(int x, int y, std::vector<int> currentPath);
-	std::vector<int> findPathInsert(int x, int y, std::vector<int> currentPath);
-	void untabu();
-	void clearTabu();
+	void Restart();
+	void TabuSearch();
+	std::vector<int> FindPathSwap(int x, int y, std::vector<int> currentPath);
+	std::vector<int> FindPathReverse(int x, int y, std::vector<int> currentPath);
+	std::vector<int> FindPathInsert(int x, int y, std::vector<int> currentPath);
+	void Untabu();
+	void ClearTabu();
 };
 

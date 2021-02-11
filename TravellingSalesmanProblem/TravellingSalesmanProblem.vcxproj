@@ -146,6 +146,7 @@
     <ClCompile Include="TSPBranchAndBound.cpp" />
     <ClCompile Include="TSPBruteForce.cpp" />
     <ClCompile Include="TSPDynamicProgramming.cpp" />
+    <ClCompile Include="TSPGeneticAlgorithm.cpp" />
     <ClCompile Include="TSPMetaheuristicAlgorithm.cpp" />
     <ClCompile Include="TSPSimulatedAnnealing.cpp" />
     <ClCompile Include="TSPTabuSearch.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="TSPBranchAndBound.h" />
     <ClInclude Include="TSPBruteForce.h" />
     <ClInclude Include="TSPDynamicProgramming.h" />
+    <ClInclude Include="TSPGeneticAlgorithm.h" />
     <ClInclude Include="TSPMetaheuristicAlgorithm.h" />
     <ClInclude Include="TSPSimulatedAnnealing.h" />
     <ClInclude Include="TSPTabuSearch.h" />

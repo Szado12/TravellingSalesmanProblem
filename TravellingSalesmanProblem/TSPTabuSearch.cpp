@@ -9,30 +9,37 @@ struct BestNeighbour
         this->value = value;
     }
 };
-TSPTabuSearch::TSPTabuSearch(int** arrayGraph, int cityNum, int second,int type)
+/// <summary>
+/// Construtor with parameters arrayGraph-graph matrix, cityNum- number of cities, time - max time of searching, type type of neighbour
+/// </summary>
+/// <param name="arrayGraph"></param>
+/// <param name="cityNum"></param>
+/// <param name="second"></param>
+/// <param name="type"></param>
+/// <returns></returns>
+TSPTabuSearch::TSPTabuSearch(int** arrayGraph, int cityNum, int time,int type)
 {
 	this->arrayGraph = arrayGraph;
 	this->cityNum = cityNum;
-	this->generateStartPath();
-    this->time = second;
+	this->GenerateStartPath();
+    this->time = time;
     switch (type)
     {
     case 0:
-        findNeigbour = &TSPTabuSearch::findPathSwap;
+        findNeigbour = &TSPTabuSearch::FindPathSwap;
         break;
     case 1:
-        findNeigbour = &TSPTabuSearch::findPathInsert;
+        findNeigbour = &TSPTabuSearch::FindPathReverse;
         break;
     case 2:
-        findNeigbour = &TSPTabuSearch::findPathReverse;
+        findNeigbour = &TSPTabuSearch::FindPathInsert;
         break;
     default:
-        findNeigbour = &TSPTabuSearch::findPathSwap;
+        findNeigbour = &TSPTabuSearch::FindPathSwap;
         break;
     }
     
-    this->distance = calculateCost(path);
-    printf("%d \n", distance);
+    this->distance = CalculateCost(path);
     this->tabuList = new int *[cityNum];
     for (int i = 0; i < cityNum; i++) {
         tabuList[i] = new int[cityNum];
@@ -40,20 +47,25 @@ TSPTabuSearch::TSPTabuSearch(int** arrayGraph, int cityNum, int second,int type)
             tabuList[i][j] = 0;
     }
 }
-
-void TSPTabuSearch::restart(std::vector<int> *vector) {
+/// <summary>
+/// Function generate new road, to escape the local minimum
+/// </summary>
+/// <param name="vector"></param>
+void TSPTabuSearch::Restart() {
     int x;
     int y;
     for (int i = 0; i < this->cityNum / 3; i++) {
         x = rand() % (this->cityNum - 1) + 1;
         y = rand() % (this->cityNum - 1) + 1;
-        std::swap(vector->at(x), vector->at(y));
+        std::swap(this->currentPath.at(x), this->currentPath.at(y));
     }
 }
-
-void TSPTabuSearch::search() {
-    std::vector<int> bestRoad = path;
-    int currentDistance = calculateCost(bestRoad);
+/// <summary>
+/// Main funcion contains tabu search algorithm
+/// </summary>
+void TSPTabuSearch::TabuSearch() {
+    this->currentPath = path;
+    int currentDistance = CalculateCost(this->currentPath);
     BestNeighbour* bestneigbour;
     int restartCount = 0;
     float timex = 0;
@@ -63,71 +75,95 @@ void TSPTabuSearch::search() {
         bestneigbour = NULL;
         for (int i = 0; i < cityNum; i++) {
             for (int j = i + 1; j < cityNum; j++) {
+                
                 if (tabuList[i][j] == 0) {
-                    std::vector<int> newRoad = (this->*findNeigbour)(i, j, bestRoad);
-                    int distanceDif = calculateCost(newRoad) - currentDistance;
+                    std::vector<int> newRoad = (this->*findNeigbour)(i, j, this->currentPath);
+                    int distanceDif = CalculateCost(newRoad) - currentDistance;
                     if (bestneigbour == NULL)
                         bestneigbour = new BestNeighbour(i, j, distanceDif);
                     else
-                        if(bestneigbour->value > distanceDif)
+                        if (bestneigbour->value > distanceDif)
                             bestneigbour = new BestNeighbour(i, j, distanceDif);
+
                 }
-               
             }
         }
-        std::swap(bestRoad[bestneigbour->x], bestRoad[bestneigbour->y]);
+        std::swap(this->currentPath[bestneigbour->x], this->currentPath[bestneigbour->y]);
         currentDistance += bestneigbour->value;
-        tabuList[bestneigbour->x][bestneigbour->y] = 10;
-        untabu();
+        tabuList[bestneigbour->x][bestneigbour->y] = sqrt(cityNum);
+        Untabu();
         if (currentDistance < this->distance) {
-            path = bestRoad;
+            path = this->currentPath;
             this->distance = currentDistance;
             restartCount = 0;
             this->findTime = (double)duration_cast<microseconds>(high_resolution_clock::now() - start).count() / 1000000;
         }
         if (restartCount == 300) {
             restartCount = 0;
-            this->restart(&bestRoad);
-            this->clearTabu();
-            currentDistance = calculateCost(bestRoad);
+            this->Restart();
+            this->ClearTabu();
+            currentDistance = CalculateCost(this->currentPath);
         }
         
     }
     
 }
-void TSPTabuSearch::untabu() {
+/// <summary>
+/// Function decrements number of iteration for moves in tabu list
+/// </summary>
+void TSPTabuSearch::Untabu() {
     for (int i = 0; i < cityNum; i++)
         for (int j = i + 1; j < cityNum; j++)
             if (tabuList[i][j] > 0)
                 tabuList[i][j]--;
 }
-
-void TSPTabuSearch::clearTabu()
+/// <summary>
+/// Function clears tabu list
+/// </summary>
+void TSPTabuSearch::ClearTabu()
 {
     for (int i = 0; i < cityNum; i++)
         for (int j = i; j < cityNum; j++)
             tabuList[i][j] = 0;
 }
-
-std::vector<int> TSPTabuSearch::findPathSwap(int x, int y,std::vector<int> currentPath)
+/// <summary>
+/// Function finds new road by swapping 2 cities
+/// </summary>
+/// <param name="x"></param>
+/// <param name="y"></param>
+/// <param name="currentPath"></param>
+/// <returns></returns>
+std::vector<int> TSPTabuSearch::FindPathSwap(int x, int y,std::vector<int> currentPath)
 {
     std::vector<int> newPath = currentPath;
     std::swap(newPath[x], newPath[y]);
     return newPath;
 }
-
-std::vector<int> TSPTabuSearch::findPathReverse(int x, int y, std::vector<int> currentPath)
+/// <summary>
+/// Function finds new road by reversing cities
+/// </summary>
+/// <param name="x"></param>
+/// <param name="y"></param>
+/// <param name="currentPath"></param>
+/// <returns></returns>
+std::vector<int> TSPTabuSearch::FindPathReverse(int x, int y, std::vector<int> currentPath)
 {
     std::vector<int> newPath = currentPath;
     std::reverse(std::begin(newPath)+x, std::begin(newPath) + y);
     return newPath;
 }
-
-std::vector<int> TSPTabuSearch::findPathInsert(int x, int y, std::vector<int> currentPath)
+/// <summary>
+/// Function finds new road by swapping inserting city x in y place
+/// </summary>
+/// <param name="x"></param>
+/// <param name="y"></param>
+/// <param name="currentPath"></param>
+/// <returns></returns>
+std::vector<int> TSPTabuSearch::FindPathInsert(int x, int y, std::vector<int> currentPath)
 {
     std::vector<int> newPath = currentPath;
-    for (int i = x; x < y; x++) {
-        std::swap(newPath[x], newPath[x + 1]);
+    for (int i = x; i < y; i++) {
+        std::swap(newPath[i], newPath[i + 1]);
     }
     return newPath;
 }

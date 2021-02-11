@@ -10,7 +10,7 @@ public:
 	int distance;
 	int cityNum;
 public:
-	std::vector<int> getPath();
-	int getDistance();
+	std::vector<int> GetPath();
+	int GetDistance();
 };
 #endif

@@ -10,15 +10,15 @@ private:
 	double time;
 public:
 	Graph(int cityNum);
-	void generateGraph();
-	void loadGraph(int i, int j, int value);
-	void printGraph();
-	void dynamicPrograming();
-	void branchAndBound();
-	void bruteForce();
-	void printPath();
-	void printHeuresticPath();
-	void simulatedAnnealing(int time, double coolingValue);
-	void tabuSearch(int time, int type);
+	void LoadGraph(int i, int j, int value);
+	void PrintGraph();
+	void DynamicPrograming();
+	void BranchAndBound();
+	void BruteForce();
+	void PrintPath();
+	void PrintPathAndTime();
+	void SimulatedAnnealing(int time, double coolingValue);
+	void TabuSearch(int time, int type);
+	void GeneticAlgorithm(int runningTime, int crossover, int mutation, int population, double crossOverChance, double mutationChance);
 };
 

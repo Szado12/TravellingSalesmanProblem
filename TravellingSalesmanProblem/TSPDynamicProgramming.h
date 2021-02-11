@@ -8,10 +8,9 @@ private:
 	int maskMax;
 public:
 	TSPDynamicProgramming(int** arrayGraph, int cityNum);
-	int dynamicProgramming(int mask, int pos);
-	void calculatePath();
-	void createPath();
-
-	int maskToPos(int mask1, int mask2);
+	int DynamicProgramming(int mask, int pos);
+	void CalculatePath();
+	void CreatePath();
+	int MaskToPos(int mask1, int mask2);
 };
 

@@ -1,6 +1,9 @@
 #include "TSPMetaheuristicAlgorithm.h"
 
-void TSPMetaheuristicAlgorithm::generateStartPath()
+/// <summary>
+/// Greedy algortihm for TSP to find good starting path
+/// </summary>
+void TSPMetaheuristicAlgorithm::GenerateStartPath()
 {
     this->path.push_back(0);
     for (int i = 1; i < this->cityNum; i++) {
@@ -21,17 +24,24 @@ void TSPMetaheuristicAlgorithm::generateStartPath()
         this->path.push_back(node);
     }
 }
-
-    int TSPMetaheuristicAlgorithm::calculateCost(std::vector<int> newPath)
-    {
-        int newCost = 0;
-        for (int i = 1; i < newPath.size(); i++)
-            newCost += arrayGraph[newPath[i - 1]][newPath[i]];
-        newCost += arrayGraph[newPath.back()][newPath.front()];
-        return newCost;
-    }
-
-    double TSPMetaheuristicAlgorithm::getFindTime()
-    {
-        return this->findTime;
-    }
+/// <summary>
+/// Function returns cost of the road
+/// </summary>
+/// <param name="newPath"></param>
+/// <returns></returns>
+int TSPMetaheuristicAlgorithm::CalculateCost(std::vector<int> newPath)
+{
+    int newCost = 0;
+    for (int i = 1; i < newPath.size(); i++)
+        newCost += arrayGraph[newPath[i - 1]][newPath[i]];
+    newCost += arrayGraph[newPath.back()][newPath.front()];
+    return newCost;
+}
+/// <summary>
+/// Function returns time, when best solution was found.
+/// </summary>
+/// <returns></returns>
+double TSPMetaheuristicAlgorithm::GetFindTime()
+{
+    return this->findTime;
+}

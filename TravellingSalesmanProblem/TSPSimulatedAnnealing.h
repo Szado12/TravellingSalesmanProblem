@@ -7,7 +7,6 @@ class TSPSimulatedAnnealing : public TSPMetaheuristicAlgorithm
 public:
 	TSPSimulatedAnnealing(int** arrayGraph, int cityNum,int time, double coolingValue);
 	void Annealing();
-	std::vector<int> findPathSwap(std::vector<int> currentPath);
-	double calculateInitalTemp(std::vector<int> vector);
+	std::vector<int> FindPathSwap(std::vector<int> currentPath);
 };
 

@@ -10,11 +10,11 @@ public:
 public:
 	BranchAndBoundNode(int** reducedMatrix, std::vector<int> path, int cost, int currentNode, int cityNum);
 	~BranchAndBoundNode();
-	int** getMatrix();
-	void disablePaths();
-	int getCost() const;
-	std::vector<int> getPath();
-	void copyMatrix(int** matrix);
-	int getCurrentNode();
+	int** GetMatrix();
+	void DisablePaths();
+	int GetCost() const;
+	std::vector<int> GetPath();
+	void CopyMatrix(int** matrix);
+	int GetCurrentNode();
 };
 

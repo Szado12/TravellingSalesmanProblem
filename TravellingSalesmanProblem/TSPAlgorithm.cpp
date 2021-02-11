@@ -1,11 +1,17 @@
 #include "TSPAlgorithm.h"
-
-std::vector<int> TSPAlgorithm::getPath()
+/// <summary>
+/// Returns path fo solution as vector
+/// </summary>
+/// <returns></returns>
+std::vector<int> TSPAlgorithm::GetPath()
 {
     return this->path;
 }
-
-int TSPAlgorithm::getDistance()
+/// <summary>
+/// Return distance of road as int
+/// </summary>
+/// <returns></returns>
+int TSPAlgorithm::GetDistance()
 {
     return this->distance;
 }

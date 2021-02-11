@@ -9,9 +9,9 @@ BranchAndBoundNode::BranchAndBoundNode(int** reducedMatrix, std::vector<int> pat
 	this->reducedMatrix = new int* [this->cityNum];
 	for (int i = 0; i < this->cityNum; i++)
 		this->reducedMatrix[i] = new int[this->cityNum];
-	this->copyMatrix(reducedMatrix);
+	this->CopyMatrix(reducedMatrix);
 	if (this->path.size() > 0)
-		this->disablePaths();
+		this->DisablePaths();
 	this->path.push_back(currentNode);
 }
 BranchAndBoundNode::~BranchAndBoundNode() {
@@ -20,12 +20,12 @@ BranchAndBoundNode::~BranchAndBoundNode() {
 	delete[] this->reducedMatrix;
 }
 
-int** BranchAndBoundNode::getMatrix()
+int** BranchAndBoundNode::GetMatrix()
 {
 	return this->reducedMatrix;
 }
 
-void BranchAndBoundNode::disablePaths()
+void BranchAndBoundNode::DisablePaths()
 {
 	int lastNode = this->path.back();
 	for (int i = 0; i < cityNum; i++) {
@@ -36,24 +36,24 @@ void BranchAndBoundNode::disablePaths()
 	}
 }
 
-int BranchAndBoundNode::getCost() const
+int BranchAndBoundNode::GetCost() const
 {
 	return this->cost;
 }
 
-std::vector<int> BranchAndBoundNode::getPath()
+std::vector<int> BranchAndBoundNode::GetPath()
 {
 	return this->path;
 }
 
-void BranchAndBoundNode::copyMatrix(int** matrix)
+void BranchAndBoundNode::CopyMatrix(int** matrix)
 {
 	for (int i = 0; i < this->cityNum; i++)
 		for (int j = 0; j < this->cityNum; j++)
 			this->reducedMatrix[i][j] = matrix[i][j];
 }
 
-int BranchAndBoundNode::getCurrentNode()
+int BranchAndBoundNode::GetCurrentNode()
 {
 	return this->currentNode;
 }

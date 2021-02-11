@@ -4,8 +4,7 @@ class TSPBruteForce : public TSPAlgorithm
 
 public:
 	TSPBruteForce(int** arrayGraph, int cityNum);
-	void calculatePath();
-	void bruteForce(std::vector<int> currentPath, int currentNode, int distance);
-	
+	void CalculatePath();
+	void BruteForce(std::vector<int> currentPath, int currentNode, int distance);
 };
 

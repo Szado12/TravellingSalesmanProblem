@@ -6,6 +6,7 @@
 #include "TSPAlgorithm.h"
 #include "TSPSimulatedAnnealing.h"
 #include "TSPTabuSearch.h"
+#include "TSPGeneticAlgorithm.h"
 
 Graph::Graph(int cityNum)
 {
@@ -15,17 +16,7 @@ Graph::Graph(int cityNum)
 		arrayGraph[i] = new int[cityNum];
 }
 
-void Graph::generateGraph()
-{
-	for (int i = 0; i < this->cityNum; i++)
-		for (int j = 0; j < this->cityNum; j++)
-			if (i == j)
-				arrayGraph[i][j] = -1;
-			else
-				arrayGraph[i][j] = rand()%100 + 1;
-}
-
-void Graph::loadGraph(int i,int j, int value)
+void Graph::LoadGraph(int i,int j, int value)
 {
 	try {
 		if(i==j)
@@ -38,7 +29,7 @@ void Graph::loadGraph(int i,int j, int value)
 	}
 }
 
-void Graph::printGraph()
+void Graph::PrintGraph()
 {
 	for (int i = -2; i < this->cityNum; i++) {
 		if (i > -1)
@@ -57,57 +48,79 @@ void Graph::printGraph()
 	printf("\n");
 }
 
-void Graph::dynamicPrograming()
+void Graph::DynamicPrograming()
 {
 	TSPDynamicProgramming* DynamicProgramming= new TSPDynamicProgramming(this->arrayGraph, this->cityNum);
-	DynamicProgramming->calculatePath();
-	this->path = DynamicProgramming->getPath();
-	this->distance = DynamicProgramming->getDistance();
+	DynamicProgramming->CalculatePath();
+	this->path = DynamicProgramming->GetPath();
+	this->distance = DynamicProgramming->GetDistance();
 }
 
-void Graph::branchAndBound()
+void Graph::BranchAndBound()
 {
 	TSPBranchAndBound* branchAndBound = new TSPBranchAndBound(this->arrayGraph, this->cityNum);
-	branchAndBound->calculatePath();
-	this->path = branchAndBound->getPath();
-	this->distance = branchAndBound->getDistance();
+	branchAndBound->CalculatePath();
+	this->path = branchAndBound->GetPath();
+	this->distance = branchAndBound->GetDistance();
 }
 
-void Graph::bruteForce()
+void Graph::BruteForce()
 {
 	TSPBruteForce* BruteForce = new TSPBruteForce(this->arrayGraph, this->cityNum);
-	BruteForce->calculatePath();
-	this->path = BruteForce->getPath();
-	this->distance = BruteForce->getDistance();
+	BruteForce->CalculatePath();
+	this->path = BruteForce->GetPath();
+	this->distance = BruteForce->GetDistance();
 }
-void Graph::printPath() {
-	printf("Path:\n");
-	for (int i = 0; i < this->cityNum; i++)
-		printf("%d -> ", this->path[i]);
-	printf("%d \nDistance: %d \n", this->path.front(),this->distance);
+void Graph::PrintPath() {
+
+	try
+	{
+
+		printf("Path:\n");
+		for (int i = 0; i < this->cityNum; i++)
+			printf("%d -> ", this->path[i]);
+		printf("%d \nDistance: %d \n", this->path.front(), this->distance);
+	}
+	catch (const std::exception&)
+	{
+		printf("Path is empty");
+	}
 }
 
-void Graph::printHeuresticPath()
+void Graph::PrintPathAndTime()
 {
-	printf("Path:\n");
-	for (int i = 0; i < this->cityNum; i++)
-		printf("%d -> ", this->path[i]);
-	printf("%d \nDistance: %d \n", this->path.front(), this->distance);
-	printf("Time: %f\n", this->time);
+	try 
+	{
+		printf("Path:\n");
+		for (int i = 0; i < this->cityNum; i++)
+			printf("%d -> ", this->path[i]);
+		printf("%d \nDistance: %d \n", this->path.front(), this->distance);
+		printf("Time: %f\n", this->time);
+	}
+	catch (const std::exception&)
+	{
+		printf("Path is empty");
+	}
 }
 
-void Graph::simulatedAnnealing(int time, double coolingValue)
+void Graph::SimulatedAnnealing(int time, double coolingValue)
 {
 	TSPSimulatedAnnealing* simulateAnnealing = new TSPSimulatedAnnealing(this->arrayGraph, this->cityNum,time, coolingValue);
 	simulateAnnealing->Annealing();
-	this->path = simulateAnnealing->getPath();
-	this->distance = simulateAnnealing->getDistance();
-	this->time = simulateAnnealing->getFindTime();
+	this->path = simulateAnnealing->GetPath();
+	this->distance = simulateAnnealing->GetDistance();
+	this->time = simulateAnnealing->GetFindTime();
 }
-void Graph::tabuSearch(int time,int type) {
+void Graph::TabuSearch(int time,int type) {
 	TSPTabuSearch* tabuSearch = new TSPTabuSearch(this->arrayGraph, this->cityNum, time, type);
-	tabuSearch->search();
-	this->path = tabuSearch->getPath();
-	this->distance = tabuSearch->getDistance();
-	this->time = tabuSearch->getFindTime();
+	tabuSearch->TabuSearch();
+	this->path = tabuSearch->GetPath();
+	this->distance = tabuSearch->GetDistance();
+	this->time = tabuSearch->GetFindTime();
+}
+void Graph::GeneticAlgorithm(int runningTime, int crossover, int mutation, int population, double crossOverChance, double mutationChance){
+	TSPGeneticAlgorithm* genetic = new TSPGeneticAlgorithm(this->arrayGraph, this->cityNum, runningTime,crossover,mutation,population,crossOverChance,mutationChance);
+	genetic->GeneticAlgorithm();
+	this->path = genetic->GetPath();
+	this->distance = genetic->GetDistance();
 }

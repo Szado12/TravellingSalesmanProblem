@@ -8,10 +8,10 @@ private:
 	
 public:
 	TSPBranchAndBound(int** arrayGraph, int cityNum);
-	void calculatePath();
-	void copyMatrices(int** matrix1, int** matrix2);
-	int* findMinInRows(int** arrayGraph);
-	int* findMinInCols(int** arrayGraph);
-	int reduceMatrix(int** arrayGraph);
+	void CalculatePath();
+	void CopyMatrices(int** matrix1, int** matrix2);
+	int* FindMinInRows(int** arrayGraph);
+	int* FindMinInCols(int** arrayGraph);
+	int ReduceMatrix(int** arrayGraph);
 };
 

@@ -11,8 +11,8 @@ protected:
 	double findTime;
 	std::vector<int> currentPath;
 public:
-	void generateStartPath();
-	int calculateCost(std::vector<int> newPath);
-	double getFindTime();
+	void GenerateStartPath();
+	int CalculateCost(std::vector<int> newPath);
+	double GetFindTime();
 };
 #endif

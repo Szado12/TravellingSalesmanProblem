@@ -1,21 +1,31 @@
 #include <algorithm>
 #include "TSPSimulatedAnnealing.h"
+#include <iostream>
 
 using namespace std::chrono;
+/// <summary>
+/// Construtor with parameters arrayGraph-graph matrix, cityNum- number of cities, time - max time of searching, coolingValue
+/// </summary>
+/// <param name="arrayGraph"></param>
+/// <param name="cityNum"></param>
+/// <param name="time"></param>
+/// <param name="coolingValue"></param>
+/// <returns></returns>
 TSPSimulatedAnnealing::TSPSimulatedAnnealing(int** arrayGraph, int cityNum, int time,double coolingValue)
 {
     this->arrayGraph = arrayGraph;
     this->cityNum = cityNum;
-    
     this->coolingValue = coolingValue;
-    this->generateStartPath();
+    this->GenerateStartPath();
     this->time = time;
-    this->distance = this->calculateCost(this->path);
-    this->temperatureMax = 50;
+    this->distance = this->CalculateCost(this->path);
+    this->temperatureMax = cityNum* cityNum;
 }
 
 
-
+/// <summary>
+/// Function contains simulated annealing alorithm
+/// </summary>
 void TSPSimulatedAnnealing::Annealing()
 {
     temperatureCurrent = temperatureMax;
@@ -25,9 +35,8 @@ void TSPSimulatedAnnealing::Annealing()
     high_resolution_clock::time_point start = high_resolution_clock::now();
     while (duration_cast<seconds>(high_resolution_clock::now() - start).count() < this->time) {
         this->temperatureCurrent *= coolingValue;
-        std::vector<int> newPath = findPathSwap(currentPath);
-        int newCost = this->calculateCost(newPath);
-
+        std::vector<int> newPath = FindPathSwap(currentPath);
+        int newCost = this->CalculateCost(newPath);
         if (newCost < cost)
         {
             cost = newCost;
@@ -40,37 +49,29 @@ void TSPSimulatedAnnealing::Annealing()
         }
         else
         {
+            
             double x = (double(rand())) / RAND_MAX;
-            if (x < exp((cost - newCost) / temperatureCurrent)) {
+            double y = exp((cost - newCost) / temperatureCurrent);
+            if (x < y) {
                 cost = newCost;
                 currentPath = newPath;
             }
+            
         }
     }
 }
-
-std::vector<int> TSPSimulatedAnnealing::findPathSwap(std::vector<int> currentPath)
+/// <summary>
+/// Function returns road created by swapping 2 random cities
+/// </summary>
+/// <param name="currentPath"></param>
+/// <returns></returns>
+std::vector<int> TSPSimulatedAnnealing::FindPathSwap(std::vector<int> currentPath)
 {
     int x = rand() % (this->cityNum - 1) + 1;
     int y = rand() % (this->cityNum - 1) + 1;
     std::vector<int> newPath = currentPath;
     std::swap(newPath[x], newPath[y]);
     return newPath;
-}
-
-double TSPSimulatedAnnealing::calculateInitalTemp(std::vector<int> vector)
-{
-    double temp = 0;
-    for (int i = 0; i < cityNum; i++) {
-        for (int j = i + 1; j < cityNum; j++) {
-            std::vector<int> newRoad = vector;
-            std::swap(newRoad[i], newRoad[j]);
-            int distanceDif = calculateCost(newRoad);
-            if (temp < distanceDif)
-                temp = distanceDif;
-        }
-    }
-    return temp;
 }
 
 
